@@ -17,7 +17,13 @@ export type Metric = {
 };
 
 /** Which hand-drawn SVG diagram to render inside an expanded project. */
-export type DiagramKey = "agent" | "hybrid" | "rag" | "rca" | "segmentation";
+export type DiagramKey =
+  | "agent"
+  | "hybrid"
+  | "propagation"
+  | "rag"
+  | "rca"
+  | "segmentation";
 
 export type ProjectLinks = {
   /** Full URL. Leave undefined to render a muted "link coming soon" chip. */

@@ -14,8 +14,8 @@ import type { Project } from "./types";
  * DiagramSwitch.tsx.
  * ─────────────────────────────────────────────────────────────────────────
  *
- * SOURCES. The three AI projects are described from their own repository
- * READMEs — every metric below appears there. The PartnerLinQ and Tequed Labs
+ * SOURCES. The flight-delay and three AI projects are described from their own
+ * repository READMEs — every metric below appears there. The PartnerLinQ and Tequed Labs
  * entries come from the resume bullets. Where a sentence explains *how* a named
  * technique works, it is describing the technique, not adding new claims.
  */
@@ -67,6 +67,55 @@ export const projects: Project[] = [
       "Gave the client something they did not have before: a defensible number attached to a known problem, broken down by cause and ordered by what to fix first. The same analysis then became the requirements baseline for an AI-driven predictive maintenance build — the findings didn't stop at a slide deck, they became a shipped solution.",
     diagram: "rca",
     links: {},
+  },
+
+  {
+    slug: "flight-delay-propagation",
+    title: "Flight Delay Propagation Analysis",
+    tagline:
+      "38.8% of delay in US aviation isn't caused by the flight reporting it — it arrived on the aircraft. Finding that changes where you'd intervene.",
+    context: "Personal project · 33.7M flights, BTS open data",
+    period: "2026",
+    featured: true,
+    category: "Data Analysis · SQL & Warehousing",
+    kind: "Personal",
+    headlineMetrics: [
+      { value: "33.7M", label: "flights analyzed" },
+      { value: "38.8%", label: "of delay is inherited, not caused" },
+      { value: "$459M", label: "annual opportunity identified" },
+    ],
+    problem:
+      "Airlines measure delay against the flight that reports it, which quietly assumes each flight is responsible for its own lateness. If a large share of delay is actually inherited from the aircraft's previous leg, then every operational decision built on that measure — where to add buffer, which delays to prioritize — is being made against the wrong cause.",
+    dataset:
+      "Five years of US Bureau of Transportation Statistics on-time data, 2021–2025: 33.7 million domestic flights, 60 monthly extracts, ~1.7 GB raw compressed to 0.76 GB of typed parquet feeding a DuckDB star schema.",
+    approach: [
+      "Reconstructed every aircraft rotation by chaining flights on tail number into the sequence each airframe actually flew, which is what makes 'delay that arrived here' a measurable quantity rather than an assumption.",
+      "Modelled each turn as inherited = max(0, inbound delay − slack), where slack is the scheduled turn minus the fastest turn that operator has ever achieved at that station — so delay only propagates when the ground time genuinely cannot absorb it.",
+      "Validated against an independent source rather than asserting the model: airlines separately report late-aircraft minutes to BTS, so the same quantity exists in the feed computed a completely different way. Across 5.4M turns receiving an aircraft 15+ minutes late, the model predicted 23.3 minutes passed on against 21.2 reported, correlating at 0.784.",
+      "Simulated the obvious fix — more morning ground time — and found it doesn't pay: buffer only earns where late aircraft actually are, and by the afternoon amplification has already fallen from 2.44x to 1.34x. No hour reaches break-even.",
+      "Reported the places the data doesn't behave: the dose-response between slack and on-time departure isn't strictly monotonic, a composition effect from those turns skewing Southwest and mid-cascade. Controlling for cascade position narrows it without removing it, so it's documented rather than smoothed away.",
+      "Packaged the analysis as a BA deliverable set — business case, KPI definitions, findings, recommendations, data dictionary, and an assumptions-and-limitations register — plus a self-contained interactive dashboard.",
+    ],
+    stack: [
+      "SQL",
+      "DuckDB",
+      "Python",
+      "Star Schema Modeling",
+      "pandas",
+      "pytest",
+      "Power BI / Tableau extracts",
+    ],
+    results: [
+      { value: "0.784", label: "correlation vs. independent source", note: "5.4M turns, validated not asserted" },
+      { value: "13x", label: "more damage from an 08:00 delay", note: "0.75 flights delayed vs 0.06 at 21:00" },
+      { value: "28", label: "data quality tests", note: "every figure regenerated from the warehouse" },
+    ],
+    businessImpact:
+      "The recommendation runs against intuition, which is what makes it worth having. Protecting the morning bank with schedule buffer looks obviously right and simulates as close to worthless, because aircraft turning at 06:00 slept at the station and aren't late yet — slack has nothing to absorb. What does pay is preventing carrier-controllable delay in that morning bank, worth roughly $459M a year in direct operating cost at a 20% reduction, scoped with a pilot design rather than proposed as a blanket change. The December 2022 Southwest collapse is the same thesis at full scale: every carrier flew into the same storm, the control group had recovered by the 26th, and Southwest peaked at 77.5% cancellations. The weather stopped; the cascade did not.",
+    diagram: "propagation",
+    links: {
+      github: "https://github.com/VikhyatKoppalgithub/Flight-Delay-Analytics",
+    },
   },
 
   {

@@ -25,9 +25,11 @@ export const skillCategories: SkillCategory[] = [
       "Statistical Analysis",
       "Predictive Modeling",
       "Segmentation & Clustering",
+      "Dimensional / Star Schema Modeling",
       "A/B Testing",
       "Funnel Analysis",
       "KPI Reporting",
+      "KPI Definition & Data Dictionaries",
     ],
   },
 
@@ -78,6 +80,7 @@ export const skillCategories: SkillCategory[] = [
     blurb: "Two years of production code behind the analysis.",
     skills: [
       "SQL",
+      "DuckDB",
       "Python",
       "pandas",
       "Streamlit",

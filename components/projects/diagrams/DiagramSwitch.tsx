@@ -1,5 +1,6 @@
 import type { DiagramKey } from "@/content/types";
 import { AgentArchitecture } from "./AgentArchitecture";
+import { DelayPropagation } from "./DelayPropagation";
 import { HybridAgentFlow } from "./HybridAgentFlow";
 import { RagPipeline } from "./RagPipeline";
 import { RcaWorkflow } from "./RcaWorkflow";
@@ -19,6 +20,7 @@ import { SegmentationFlow } from "./SegmentationFlow";
 const DIAGRAMS: Record<DiagramKey, () => React.JSX.Element> = {
   agent: AgentArchitecture,
   hybrid: HybridAgentFlow,
+  propagation: DelayPropagation,
   rag: RagPipeline,
   rca: RcaWorkflow,
   segmentation: SegmentationFlow,

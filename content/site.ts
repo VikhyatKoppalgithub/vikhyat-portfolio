@@ -114,9 +114,9 @@ export const impactStats = [
     note: "SQL root cause analysis · PartnerLinQ",
   },
   {
-    value: "65K+",
-    label: "system errors mapped to root causes",
-    note: "Failure pattern + bottleneck analysis",
+    value: "33.7M",
+    label: "flight records analyzed in SQL",
+    note: "DuckDB star schema · delay propagation",
   },
   {
     value: "+162%",
