@@ -74,8 +74,12 @@ export const site = {
   availability:
     "MS-BAIM graduate — available now for Data Analyst and Business Analyst roles",
 
-  /** TODO(vikhyat): set to your real domain before deploying (used for SEO/OG). */
-  url: "https://vikhyatkoppal.com",
+  /**
+   * Live production URL. Feeds og:url, the JSON-LD Person schema, sitemap.xml
+   * and robots.txt. If you later add a custom domain in Vercel, change this
+   * line and push — everything SEO-facing follows from it.
+   */
+  url: "https://vikhyat-koppal-portfolio.vercel.app",
 
   seo: {
     title: "Vikhyat Yashvanth Koppal — Data Analyst & Business Analyst",
