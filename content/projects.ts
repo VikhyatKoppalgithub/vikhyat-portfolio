@@ -1,0 +1,254 @@
+import type { Project } from "./types";
+
+/**
+ * Featured projects — the strongest section of the site.
+ *
+ * ── HOW TO ADD A PROJECT ────────────────────────────────────────────────
+ * Append an object to the array below. Nothing else needs to change: the
+ * grid, the expansion behaviour, the metric tiles and the anchor links are
+ * all generated from this data.
+ *
+ * Set `featured: true` for the ones that should render first, above the
+ * "More work" divider. Set `diagram` only if you also add a matching
+ * component in components/projects/diagrams/ and register it in
+ * DiagramSwitch.tsx.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * SOURCES. The three AI projects are described from their own repository
+ * READMEs — every metric below appears there. The PartnerLinQ and Tequed Labs
+ * entries come from the resume bullets. Where a sentence explains *how* a named
+ * technique works, it is describing the technique, not adding new claims.
+ */
+
+export const projects: Project[] = [
+  {
+    slug: "cloud-telemetry-rca",
+    title: "Cloud Telemetry Root Cause Analysis",
+    tagline:
+      "Turned an unquantified 'our cloud costs are high' complaint into a ranked, addressable remediation list.",
+    context: "PartnerLinQ · Graduate Industry Practicum",
+    period: "Jan 2026 – May 2026",
+    featured: true,
+    category: "Data Analysis · Root Cause Analysis",
+    kind: "Professional",
+    headlineMetrics: [
+      { value: "12.4M", label: "units of monthly waste surfaced" },
+      { value: "65K+", label: "system errors characterized" },
+      { value: "On time", label: "AI solution delivered" },
+    ],
+    problem:
+      "A cloud platform was consuming more resources than anyone could account for, and error volume had grown high enough that it was being treated as background noise rather than signal. Nobody had a quantified picture of where the waste and the failures were actually concentrated — which meant no one could prioritize a fix.",
+    dataset:
+      "Cloud operational telemetry across production data pipelines — resource consumption records and system error logs.",
+    approach: [
+      "Wrote SQL against raw telemetry to isolate and quantify resource consumption that produced no corresponding value.",
+      "Mapped failure patterns and process bottlenecks across the cloud data pipelines, grouping the error volume into recurring, nameable causes instead of an undifferentiated count.",
+      "Ranked findings by remediation impact so engineering effort could go to the largest contributors first.",
+      "Translated the operational findings into functional requirements for an AI-driven predictive maintenance solution.",
+      "Presented to client decision makers through structured stakeholder reviews, framing analytical findings against business priorities.",
+    ],
+    stack: [
+      "SQL",
+      "Cloud Telemetry Analysis",
+      "Root Cause Analysis",
+      "Requirements Elicitation",
+      "Stakeholder Reporting",
+    ],
+    results: [
+      {
+        value: "12.4M",
+        label: "units of monthly resource waste",
+        note: "surfaced and attributed to specific causes",
+      },
+      { value: "65K+", label: "system errors mapped", note: "grouped into recurring failure patterns" },
+      { value: "On schedule", label: "predictive maintenance solution", note: "requirements delivered to spec" },
+    ],
+    businessImpact:
+      "Gave the client something they did not have before: a defensible number attached to a known problem, broken down by cause and ordered by what to fix first. The same analysis then became the requirements baseline for an AI-driven predictive maintenance build — the findings didn't stop at a slide deck, they became a shipped solution.",
+    diagram: "rca",
+    links: {},
+  },
+
+  {
+    slug: "customer-segmentation",
+    title: "Customer Segmentation & Targeted Marketing",
+    tagline:
+      "Broke a single undifferentiated customer base into 4+ behavioral segments, then made the findings self-serve.",
+    context: "Tequed Labs · Data Analyst Intern",
+    period: "Sept 2022 – Dec 2022",
+    featured: true,
+    category: "Customer Analytics · BI Reporting",
+    kind: "Professional",
+    headlineMetrics: [
+      { value: "4+", label: "behavioral segments identified" },
+      { value: "25%", label: "reporting efficiency gain" },
+      { value: "3", label: "Tableau dashboards shipped" },
+    ],
+    problem:
+      "Marketing was addressing the customer base as if it were one audience, which meant every campaign was tuned to an average customer who didn't exist. Stakeholders also had no self-serve view of performance — every question required an analyst.",
+    dataset: "Customer behavioral and transaction data.",
+    approach: [
+      "Applied K-means clustering to customer behavioral data to identify natural groupings rather than imposing predetermined demographic buckets.",
+      "Profiled the resulting 4+ segments into descriptions a marketing stakeholder could act on.",
+      "Built 3 Tableau dashboards so recurring questions could be answered without an analyst in the loop.",
+      "Documented the analytical findings and translated them into targeted marketing recommendations.",
+    ],
+    stack: ["Python", "K-Means Clustering", "Tableau", "Segmentation Analysis", "Data Storytelling"],
+    results: [
+      { value: "4+", label: "behavioral segments", note: "each with actionable profiles" },
+      { value: "25%", label: "reporting efficiency improvement", note: "via self-serve dashboards" },
+      { value: "3", label: "dashboards delivered", note: "adopted by business stakeholders" },
+    ],
+    businessImpact:
+      "Moved marketing from one-size-fits-all to segment-specific targeting, and moved reporting from request-driven to self-serve. The second change compounds: every hour not spent rebuilding the same report is an hour available for the next analysis.",
+    diagram: "segmentation",
+    links: {},
+  },
+
+  {
+    slug: "ai-marketing-budget-agent",
+    title: "AI-Powered Marketing Budget Allocation Agent",
+    tagline:
+      "An agent that decides where the weekly ad budget goes — and can prove the split is optimal, not just plausible.",
+    context: "Purdue University · Daniels School of Business",
+    period: "2025 – 2026",
+    featured: true,
+    category: "Marketing Analytics · Optimization",
+    kind: "Academic",
+    headlineMetrics: [
+      { value: "+162%", label: "predicted conversion lift" },
+      { value: "132K+", label: "rows of eCommerce data" },
+      { value: "KKT", label: "verified optimal solution" },
+    ],
+    problem:
+      "Weekly digital marketing budgets are usually split by habit — last quarter's allocation, adjusted by instinct. With five years of eCommerce history sitting unused, the question was whether an agent could make that call better than a rule of thumb, and whether it could show its answer was actually optimal rather than merely confident.",
+    dataset:
+      "Five years of eCommerce marketing and conversion history — 132,000+ rows of weekly spend and performance data.",
+    approach: [
+      "Framed weekly budget allocation as a constrained optimization problem: maximize conversions subject to a fixed total spend across channels.",
+      "Used Bayesian Optimization to search the allocation space efficiently, rather than brute-forcing a high-dimensional grid of possible splits.",
+      "Verified the solver's output against the Karush-Kuhn-Tucker (KKT) conditions — so the recommended allocation carries a mathematical optimality guarantee under the budget constraint, instead of being the best option the search happened to sample.",
+      "Wrapped the system in a Gemini LLM interface so a stakeholder can ask in plain language and get back both the allocation and the reasoning behind it.",
+    ],
+    stack: [
+      "Python",
+      "Bayesian Optimization",
+      "KKT / Constrained Optimization",
+      "SciPy",
+      "scikit-learn",
+      "Google Gemini",
+      "Streamlit",
+      "Plotly",
+    ],
+    results: [
+      { value: "+162%", label: "predicted conversion lift", note: "vs. baseline allocation" },
+      { value: "132K+", label: "rows processed", note: "5 years of weekly history" },
+      { value: "KKT", label: "optimality verified", note: "not just sampled-best" },
+    ],
+    businessImpact:
+      "Turns a recurring judgment call into a repeatable, auditable decision. The KKT verification is the part that matters commercially: it separates an agent whose recommendation you can act on from one whose output you have to independently double-check. That distinction is the difference between an LLM demo and a system a marketing team can actually put in the loop.",
+    diagram: "agent",
+    links: {
+      github:
+        "https://github.com/VikhyatKoppalgithub/AI-Powered-Marketing-Budget-Allocation-Agent",
+    },
+  },
+
+  {
+    slug: "ai-data-analyst",
+    title: "AI Data Analyst — Hybrid Verified Agent",
+    tagline:
+      "Upload a messy spreadsheet, ask a business question, and get an answer whose every number was computed and checked — not generated.",
+    context: "Personal project · runs fully local",
+    period: "2026",
+    featured: false,
+    category: "Analytics Automation · AI",
+    kind: "Personal",
+    headlineMetrics: [
+      { value: "98%", label: "on a 306-assertion eval" },
+      { value: "1.1M", label: "payroll rows stress-tested" },
+      { value: "$0.00", label: "per query — no API key" },
+    ],
+    problem:
+      "Language models cannot do arithmetic reliably, and they hide it well. Asked to split a 16% revenue decline across two segments, qwen2.5-coder:14b answered 13pp and 3pp — the true values were 15.4pp and 0.61pp, wrong by 5x on the smaller one and neatly back-fitted to sum to 16. Asked for a correlation, it reported −0.1468 with a confident interpretation attached, before any code had run. The real value was −0.0033: no relationship at all.",
+    dataset:
+      "Two synthetic fixtures built to have known ground truth — 9,596 rows of retail sales (revenue falling 16.1%) and 37,166 support tickets (SLA breaches rising 48.4%) — each seeded with a decoy slice that moves dramatically but explains almost nothing. Later hardened against two real government exports — New Zealand's Annual Enterprise Survey and NYC's Citywide Payroll, the second of which stress-tested the pipeline at 1.1M rows.",
+    approach: [
+      "Profile rather than dump: the raw rows never reach the model. A 37,000-row file is rendered into roughly 580 tokens carrying dtypes, semantic types where they disagree with storage, null and duplicate counts, cardinality, and trap flags — an int64 ticket_id is reported as 'numeric but reads as an identifier — do not aggregate'.",
+      "Split answering into two paths with different guarantees, and surface the difference instead of blending it: a deterministic contribution engine whose arithmetic is exact and reconciled, and a sandboxed code path that runs model-written Python and iterates on real tracebacks.",
+      "Make the arithmetic self-checking. Contributions are computed as a share of the total change, so they must sum to that total — if they don't, the grouping is silently dropping rows. This also guards against the classic error of reporting the largest percentage move instead of the largest actual contributor.",
+      "Refuse prose until something has actually executed. The code loop discards an answer if the model tries to respond without a successful run; a failed execution doesn't count.",
+      "Grade it deterministically: 16 cases across 2 datasets, 102 assertions, no model judging another model — so a score is reproducible and free to produce. Assertions are grouped into routing, interpretation, correctness, and communication, which separates reading the question from deciding how to answer it from reporting honestly.",
+    ],
+    stack: [
+      "Python",
+      "Ollama · qwen2.5-coder",
+      "pandas",
+      "Streamlit",
+      "pytest",
+      "Sandboxed Execution",
+      "Deterministic Evals",
+    ],
+    results: [
+      { value: "98%", label: "eval score", note: "301/306 assertions · qwen2.5-coder:14b" },
+      { value: "0.6 pp", label: "standard deviation", note: "across three full passes" },
+      { value: "$0.00", label: "cost per query", note: "96 runs, 53 min, local only" },
+    ],
+    businessImpact:
+      "The value isn't that it answers questions — it's that it tells you which answers you can trust. Verified arithmetic and model-written code are labelled differently rather than presented with equal confidence, which is the difference between a tool an analyst can put in front of a stakeholder and one they have to re-check by hand. Running locally also removes the per-query cost and the data-leaves-the-building problem that blocks most LLM tooling in regulated settings.",
+    diagram: "hybrid",
+    links: {
+      github: "https://github.com/VikhyatKoppalgithub/AI_DATA_ANALYST_HYBRID_AGENT",
+    },
+  },
+
+  {
+    slug: "hr-rag-assistant",
+    title: "Northwind HR Assistant — RAG with an Evaluation Harness",
+    tagline:
+      "Five retrieval strategies, scored on 31 questions — and a result that overturned the choice I would otherwise have shipped.",
+    context: "Personal project · no framework dependencies",
+    period: "2026",
+    featured: false,
+    category: "Knowledge Retrieval · AI",
+    kind: "Personal",
+    headlineMetrics: [
+      { value: "1.000", label: "Hit@5 with two-stage rerank" },
+      { value: "5", label: "strategies benchmarked" },
+      { value: "~60", label: "lines of BM25, from scratch" },
+    ],
+    problem:
+      "Most RAG projects ship a pipeline and assert that it works. Without measurement there's no way to tell whether a change helped or just felt better — and the intuitive architecture choice is not always the right one. The harder question isn't 'can I build retrieval', it's 'can I prove which retrieval is better on my data'.",
+    dataset:
+      "An employee handbook indexed into 51 chunks, evaluated against 28 questions with known correct answers plus 3 deliberately unanswerable ones — so the system is scored on knowing when to decline, not only on recall.",
+    approach: [
+      "Built without LangChain, LlamaIndex, or a vector database — BM25 is implemented from scratch in roughly 60 lines so the ranking formula is visible and inspectable rather than hidden behind an abstraction.",
+      "Benchmarked five strategies on the same question set: BM25, dense embeddings, hybrid fusion, and two-stage variants that retrieve 20 candidates then reorder them with a cross-encoder.",
+      "Scored every strategy on Hit@5, MRR, and Recall@5, so ranking quality is separated from raw retrieval — a strategy can find the right passage and still bury it.",
+      "Diagnosed the failures rather than just tallying them: BM25 missed every paraphrase ('I'm having a baby soon' never says 'parental'), while dense retrieval missed a question where three near-identical stipend sections sat almost on top of each other in vector space.",
+    ],
+    stack: [
+      "Python",
+      "BM25 (from scratch)",
+      "Dense Embeddings",
+      "Cross-Encoder Reranking",
+      "Hybrid Retrieval",
+      "Evaluation Harness",
+    ],
+    results: [
+      { value: "1.000", label: "Hit@5 and Recall@5", note: "dense + rerank, perfect on the set" },
+      { value: "0.964", label: "MRR", note: "vs. 0.911 dense, 0.846 hybrid" },
+      { value: "31", label: "graded questions", note: "28 answerable + 3 that shouldn't be" },
+    ],
+    businessImpact:
+      "The headline finding is a negative one, and that's the useful part: hybrid retrieval — the conventional default — scored worse on MRR than plain dense retrieval, because fusing in BM25's weaker ranking pushed correct passages down. Two-stage reranking then recovered an answer that no single-stage strategy could find at all. Without the eval harness, hybrid would have shipped and been reported as the better system. That is the argument for measuring retrieval instead of assuming it.",
+    diagram: "rag",
+    links: {
+      github: "https://github.com/VikhyatKoppalgithub/HR_Chatbot_Assistant",
+    },
+  },
+];
+
+/** Convenience selectors used by the Projects section. */
+export const featuredProjects = projects.filter((p) => p.featured);
+export const additionalProjects = projects.filter((p) => !p.featured);

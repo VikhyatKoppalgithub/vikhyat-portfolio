@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — "data instrument"
+
+   Dark is the default. `.light` on <html> flips every token below, so the
+   whole site re-themes without a single `dark:` utility scattered through the
+   components. To retune the palette, edit these values and nothing else.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@custom-variant light (&:where(.light, .light *));
+
+:root {
+  /* surfaces, darkest → lightest */
+  --bg: #07090c;
+  --bg-elev: #0b0f15;
+  --surface: #10151c;
+  --surface-2: #161d26;
+
+  /* hairlines */
+  --line: #1d2731;
+  --line-strong: #2b3846;
+
+  /* type */
+  --fg: #e8edf4;
+  --fg-muted: #97a4b5;
+  --fg-subtle: #6b7887;
+
+  /* accent — electric cyan, with indigo as the gradient partner */
+  --accent: #22d3ee;
+  --accent-2: #818cf8;
+  --accent-fg: #041016;
+  --accent-soft: rgb(34 211 238 / 0.12);
+  --accent-line: rgb(34 211 238 / 0.35);
+
+  /* track colours for the experience timeline */
+  --track-analytics: #22d3ee;
+  --track-engineering: #818cf8;
+
+  --grid-line: rgb(255 255 255 / 0.028);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+}
+
+.light {
+  --bg: #fafbfc;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f2f5f9;
+
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+
+  --fg: #0b1220;
+  --fg-muted: #52627a;
+  --fg-subtle: #7c8ba1;
+
+  /* darkened so contrast passes on a light ground */
+  --accent: #0e7490;
+  --accent-2: #4f46e5;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(14 116 144 / 0.08);
+  --accent-line: rgb(14 116 144 / 0.28);
+
+  --track-analytics: #0e7490;
+  --track-engineering: #4f46e5;
+
+  --grid-line: rgb(11 18 32 / 0.035);
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+}
+
+/* Expose the tokens to Tailwind as `bg-surface`, `text-fg-muted`, etc.
+   `inline` is required so the theme values resolve the var() references. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, "SF Mono", monospace;
+
+  --shadow-card: var(--shadow-card);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* keeps anchored sections clear of the fixed navbar */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Respect the OS setting. Anything animated must still be readable at rest. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  /* Faint engineering-drafting grid. Used behind the hero. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Tabular figures keep metric tiles from shifting width as numbers change. */
+  .metric {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+  }
+
+
+  /* ── Fluid typography ──────────────────────────────────────────────────
+     Scales continuously with the viewport instead of jumping at breakpoints.
+     Each clamp is tuned so the MAX equals the previous desktop size and is
+     reached at ~1020px, which leaves the desktop design untouched while
+     giving small screens a proportionate size instead of a shrunken one. */
+
+  .text-display {
+    /* was: text-4xl / sm:text-5xl / md:text-6xl / lg:text-[3.9rem] */
+    font-size: clamp(2rem, 5.4vw + 0.5rem, 3.9rem);
+    line-height: 1.08;
+  }
+
+  .text-section-title {
+    /* was: text-3xl / md:text-4xl */
+    font-size: clamp(1.55rem, 2.9vw + 0.4rem, 2.25rem);
+    line-height: 1.15;
+  }
+
+  .text-card-title {
+    /* was: text-xl / md:text-2xl */
+    font-size: clamp(1.125rem, 1.1vw + 0.85rem, 1.5rem);
+    line-height: 1.25;
+  }
+
+  .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  /* Wide content (diagrams, tables) scrolls inside itself rather than
+     forcing the page body to scroll sideways on mobile. */
+  .scroll-x {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+}
+
+/* Custom scrollbar — subtle, matches the surface palette. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--fg-subtle); }
