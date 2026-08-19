@@ -52,13 +52,22 @@ export const site = {
      * to wrap without eating the fold, so the short form is shown instead.
      */
     availabilityBadge: "Open to Data Analyst & Business Analyst Roles",
-    availabilityBadgeShort: "Open to roles",
 
     /** Credibility chips. Facts only. */
     chips: [
       "U.S. Citizen · No Sponsorship Required",
       "M.S. Business Analytics and Information Management — Purdue",
       "CAPM® · Azure AI-900 Certified",
+    ],
+
+    /**
+     * Shorter forms for the horizontal mobile card, where the information
+     * column is only ~190px wide. Same facts, fewer characters.
+     */
+    chipsCompact: [
+      "M.S. Business Analytics — Purdue",
+      "CAPM® · Azure AI-900",
+      "U.S. Citizen · No Sponsorship Required",
     ],
   },
 

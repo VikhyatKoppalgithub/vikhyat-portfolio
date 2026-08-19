@@ -44,7 +44,7 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           {/* Portrait sits above the copy on mobile — a compact profile
               header — and beside it from lg up. */}
-          <Reveal className="order-first mx-auto w-full max-w-[128px] sm:max-w-[168px] lg:order-last lg:mx-0 lg:max-w-none">
+          <Reveal className="order-first w-full lg:order-last">
             <HeroPortrait />
           </Reveal>
 
@@ -170,7 +170,7 @@ export function Hero() {
               the photo alone, so they render here instead. */}
           <Reveal delay={0.32}>
             <div className={`mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-fg-subtle ${
-              site.portrait ? "lg:hidden" : ""
+              site.portrait ? "hidden" : ""
             }`}>
               {site.hero.chips.map((chip) => (
                 <span key={chip} className="inline-flex items-center gap-2">
