@@ -102,8 +102,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* keeps anchored sections clear of the fixed navbar */
-    scroll-padding-top: 5.5rem;
+    /*
+     * Single source of truth for anchor offset: the 4rem navbar plus 1rem of
+     * breathing room. Applies to every scroll target, so individual sections
+     * must NOT also set scroll-margin-top — the two values add up and leave a
+     * dead gap under the navbar.
+     */
+    scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
   }
 

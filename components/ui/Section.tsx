@@ -15,7 +15,7 @@ export function Section({ id, children, className = "", elevated = false }: Sect
     <section
       id={id}
       // scroll-mt keeps the heading clear of the fixed navbar on anchor jumps
-      className={`scroll-mt-24 py-14 sm:py-20 md:py-28 ${
+      className={`py-14 sm:py-20 md:py-28 ${
         elevated ? "bg-bg-elev border-y border-line" : ""
       } ${className}`}
     >

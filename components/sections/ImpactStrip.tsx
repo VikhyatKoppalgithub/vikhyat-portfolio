@@ -10,7 +10,7 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 export function ImpactStrip() {
   return (
-    <section id="impact" className="scroll-mt-24 border-y border-line bg-bg-elev py-10 sm:py-14">
+    <section id="impact" className="border-y border-line bg-bg-elev py-10 sm:py-14">
       <div className="container-page">
         <Reveal>
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.18em] text-fg-subtle">

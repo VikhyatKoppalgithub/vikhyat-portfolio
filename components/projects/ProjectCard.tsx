@@ -24,7 +24,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       id={project.slug}
-      className={`scroll-mt-24 overflow-hidden rounded-2xl border bg-surface transition-colors duration-300 ${
+      className={`overflow-hidden rounded-2xl border bg-surface transition-colors duration-300 ${
         open ? "border-accent-line" : "border-line hover:border-line-strong"
       }`}
     >
