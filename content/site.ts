@@ -119,9 +119,9 @@ export const impactStats = [
     note: "DuckDB star schema · delay propagation",
   },
   {
-    value: "+162%",
-    label: "predicted conversion lift from reallocating budget",
-    note: "Analytics-driven marketing optimization",
+    value: "$39.20",
+    label: "per-household-week of reported lift shown to be non-incremental",
+    note: "Stacked difference-in-differences · dunnhumby",
   },
   {
     value: "2 yrs",

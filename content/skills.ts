@@ -27,6 +27,8 @@ export const skillCategories: SkillCategory[] = [
       "Segmentation & Clustering",
       "Dimensional / Star Schema Modeling",
       "A/B Testing",
+      "Causal Inference (DiD)",
+      "Placebo / Falsification Testing",
       "Funnel Analysis",
       "KPI Reporting",
       "KPI Definition & Data Dictionaries",

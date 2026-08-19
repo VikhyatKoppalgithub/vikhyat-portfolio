@@ -20,6 +20,7 @@ export type Metric = {
 export type DiagramKey =
   | "agent"
   | "hybrid"
+  | "incrementality"
   | "propagation"
   | "rag"
   | "rca"

@@ -14,8 +14,8 @@ import type { Project } from "./types";
  * DiagramSwitch.tsx.
  * ─────────────────────────────────────────────────────────────────────────
  *
- * SOURCES. The flight-delay and three AI projects are described from their own
- * repository READMEs — every metric below appears there. The PartnerLinQ and Tequed Labs
+ * SOURCES. The incrementality, flight-delay and three AI projects are described
+ * from their own repository READMEs — every metric below appears there. The PartnerLinQ and Tequed Labs
  * entries come from the resume bullets. Where a sentence explains *how* a named
  * technique works, it is describing the technique, not adding new claims.
  */
@@ -70,59 +70,6 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "flight-delay-propagation",
-    title: "Flight Delay Propagation Analysis",
-    tagline:
-      "38.8% of delay in US aviation isn't caused by the flight reporting it — it arrived on the aircraft. Finding that changes where you'd intervene.",
-    context: "Personal project · 33.7M flights, BTS open data",
-    period: "2026",
-    featured: true,
-    category: "Data Analysis · SQL & Warehousing",
-    kind: "Personal",
-    headlineMetrics: [
-      { value: "33.7M", label: "flights analyzed" },
-      { value: "38.8%", label: "of delay is inherited, not caused" },
-      { value: "$459M", label: "annual opportunity identified" },
-    ],
-    problem:
-      "Airlines measure delay against the flight that reports it, which quietly assumes each flight is responsible for its own lateness. If a large share of delay is actually inherited from the aircraft's previous leg, then every operational decision built on that measure — where to add buffer, which delays to prioritize — is being made against the wrong cause.",
-    dataset:
-      "Five years of US Bureau of Transportation Statistics on-time data, 2021–2025: 33.7 million domestic flights, 60 monthly extracts, ~1.7 GB raw compressed to 0.76 GB of typed parquet feeding a DuckDB star schema.",
-    approach: [
-      "Reconstructed every aircraft rotation by chaining flights on tail number into the sequence each airframe actually flew, which is what makes 'delay that arrived here' a measurable quantity rather than an assumption.",
-      "Modelled each turn as inherited = max(0, inbound delay − slack), where slack is the scheduled turn minus the fastest turn that operator has ever achieved at that station — so delay only propagates when the ground time genuinely cannot absorb it.",
-      "Validated against an independent source rather than asserting the model: airlines separately report late-aircraft minutes to BTS, so the same quantity exists in the feed computed a completely different way. Across 5.4M turns receiving an aircraft 15+ minutes late, the model predicted 23.3 minutes passed on against 21.2 reported, correlating at 0.784.",
-      "Simulated the obvious fix — more morning ground time — and found it doesn't pay: buffer only earns where late aircraft actually are, and by the afternoon amplification has already fallen from 2.44x to 1.34x. No hour reaches break-even.",
-      "Reported the places the data doesn't behave: the dose-response between slack and on-time departure isn't strictly monotonic, a composition effect from those turns skewing Southwest and mid-cascade. Controlling for cascade position narrows it without removing it, so it's documented rather than smoothed away.",
-      "Packaged the analysis as a BA deliverable set — business case, KPI definitions, findings, recommendations, data dictionary, and an assumptions-and-limitations register — with every figure in the docs regenerated from the warehouse rather than typed, so no number in the write-up can drift from the data behind it.",
-      "Built two front ends over the same warehouse: a self-contained dashboard that opens as a single HTML file with no server, and a Streamlit explorer that re-queries all 33.6M rows live against whatever carrier, airport and date range you pick — DuckDB returns a filtered aggregate in under a tenth of a second, so nothing is pre-computed.",
-      "Added a rotation inspector that draws one airframe's scheduled day against the day it actually flew, so a cascade can be watched leg by leg instead of read as a statistic. It surfaces what the aggregates hide: on a bad day several legs are not continuations at all — the aircraft was booked out before its inbound was due in, a tail-chain break from an aircraft swap or a maintenance leg missing from the feed.",
-    ],
-    stack: [
-      "SQL",
-      "DuckDB",
-      "Python",
-      "Star Schema Modeling",
-      "pandas",
-      "Streamlit",
-      "Plotly",
-      "pytest",
-      "Power BI / Tableau extracts",
-    ],
-    results: [
-      { value: "0.784", label: "correlation vs. independent source", note: "5.4M turns, validated not asserted" },
-      { value: "13x", label: "more damage from an 08:00 delay", note: "0.75 flights delayed vs 0.06 at 21:00" },
-      { value: "28", label: "data quality tests", note: "every figure regenerated from the warehouse" },
-    ],
-    businessImpact:
-      "The recommendation runs against intuition, which is what makes it worth having. Protecting the morning bank with schedule buffer looks obviously right and simulates as close to worthless, because aircraft turning at 06:00 slept at the station and aren't late yet — slack has nothing to absorb. What does pay is preventing carrier-controllable delay in that morning bank, worth roughly $459M a year in direct operating cost at a 20% reduction, scoped with a pilot design rather than proposed as a blanket change. The December 2022 Southwest collapse is the same thesis at full scale: every carrier flew into the same storm, the control group had recovered by the 26th, and Southwest peaked at 77.5% cancellations. The weather stopped; the cascade did not.",
-    diagram: "propagation",
-    links: {
-      github: "https://github.com/VikhyatKoppalgithub/Flight-Delay-Analytics",
-    },
-  },
-
-  {
     slug: "promo-incrementality",
     title: "Promotion Incrementality Analysis",
     tagline:
@@ -140,7 +87,7 @@ export const projects: Project[] = [
     problem:
       "The retailer measured its coupon campaigns by comparing targeted households against untargeted ones, which showed a 4.39x difference in weekly spend. The same two groups already differed 5.67x before any campaign was mailed \u2014 the retailer targets its best customers, so the measurement was crediting campaigns with a gap that predated them. Every decision about which campaigns to repeat was being made on that number.",
     dataset:
-      "dunnhumby The Complete Journey: 2,469 households of a US grocery retailer over 2017 \u2014 1.47M transaction lines, 20.9M product-store-week promotion records, 27 campaigns, 6,589 sends and 2,102 redemptions. 22.6M rows modelled into a DuckDB star schema.",
+      "dunnhumby The Complete Journey: 2,469 households of a US grocery retailer over 2017 \u2014 1.47M transaction lines, 20.9M product-store-week promotion records, 27 campaigns, 6,589 sends and 2,102 redemptions. 22.8M rows modelled into a DuckDB star schema.",
     approach: [
       "Recovered the operating timezone from the data before trusting any join: source timestamps are UTC while the retailer's week boundary is local midnight, so a naive date cast misassigns 1.16M of 1.47M transactions across campaign windows. Converting to America/New_York reproduces the source week for all 1,469,307 rows exactly.",
       "Rejected never-targeted households as a control group \u2014 their median pre-period spend was $5.99 against $154.99 for targeted households, a gap no matching can repair \u2014 and used not-yet-treated households instead, drawn from the same targeted population by the same selection process.",
@@ -178,9 +125,64 @@ export const projects: Project[] = [
     ],
     businessImpact:
       "The finding that makes this worth discussing is the one that cost me the good headline. Campaign 13 was the programme's only positive, significant result \u2014 +$8.04 per household-week, p=0.003, worth $14,539 in modelled margin. It has zero individually significant pre-treatment coefficients, so every week-by-week check passes and the standard eyeball of an event-study plot would have cleared it. Only the joint test, using the covariance between those coefficients rather than reading them one at a time, catches the drift. Reporting it would have handed the retailer a campaign to scale on evidence that doesn't hold. The recommendation is therefore not \u201cstop couponing\u201d \u2014 it is that a programme spending on 6,589 sends with a 12% redemption rate should reserve a randomised holdout, which turns a contested statistical reconstruction into a subtraction, and re-run campaign 13 properly rather than discard it. Failing a parallel-trends test is evidence that the data cannot tell, not evidence of no effect.",
+    diagram: "incrementality",
     links: {
       github:
         "https://github.com/VikhyatKoppalgithub/Trade-promotion-incrementality",
+    },
+  },
+
+  {
+    slug: "flight-delay-propagation",
+    title: "Flight Delay Propagation Analysis",
+    tagline:
+      "38.8% of delay in US aviation isn't caused by the flight reporting it — it arrived on the aircraft. Finding that changes where you'd intervene.",
+    context: "Personal project · 33.7M flights, BTS open data",
+    period: "2026",
+    featured: true,
+    category: "Data Analysis · SQL & Warehousing",
+    kind: "Personal",
+    headlineMetrics: [
+      { value: "33.7M", label: "flights analyzed" },
+      { value: "38.8%", label: "of delay is inherited, not caused" },
+      { value: "$459M", label: "annual opportunity identified" },
+    ],
+    problem:
+      "Airlines measure delay against the flight that reports it, which quietly assumes each flight is responsible for its own lateness. If a large share of delay is actually inherited from the aircraft's previous leg, then every operational decision built on that measure — where to add buffer, which delays to prioritize — is being made against the wrong cause.",
+    dataset:
+      "Five years of US Bureau of Transportation Statistics on-time data, 2021–2025: 33.7 million domestic flights, 60 monthly extracts, ~1.7 GB raw compressed to 0.76 GB of typed parquet feeding a DuckDB star schema.",
+    approach: [
+      "Reconstructed every aircraft rotation by chaining flights on tail number into the sequence each airframe actually flew, which is what makes 'delay that arrived here' a measurable quantity rather than an assumption.",
+      "Modelled each turn as inherited = max(0, inbound delay − slack), where slack is the scheduled turn minus the fastest turn that operator has ever achieved at that station — so delay only propagates when the ground time genuinely cannot absorb it.",
+      "Validated against an independent source rather than asserting the model: airlines separately report late-aircraft minutes to BTS, so the same quantity exists in the feed computed a completely different way. Across 5.4M turns receiving an aircraft 15+ minutes late, the model predicted 23.3 minutes passed on against 21.2 reported, correlating at 0.784.",
+      "Simulated the obvious fix — more morning ground time — and found it doesn't pay: buffer only earns where late aircraft actually are, and by the afternoon amplification has already fallen from 2.44x to 1.34x. No hour reaches break-even.",
+      "Reported the places the data doesn't behave: the dose-response between slack and on-time departure isn't strictly monotonic, a composition effect from those turns skewing Southwest and mid-cascade. Controlling for cascade position narrows it without removing it, so it's documented rather than smoothed away.",
+      "Packaged the analysis as a BA deliverable set — business case, KPI definitions, findings, recommendations, data dictionary, and an assumptions-and-limitations register — with every figure in the docs regenerated from the warehouse rather than typed, so no number in the write-up can drift from the data behind it.",
+      "Built two front ends over the same warehouse: a self-contained dashboard that opens as a single HTML file with no server, and a Streamlit explorer that re-queries all 33.6M rows live against whatever carrier, airport and date range you pick — DuckDB returns a filtered aggregate in under a tenth of a second, so nothing is pre-computed.",
+      "Added a rotation inspector that draws one airframe's scheduled day against the day it actually flew, so a cascade can be watched leg by leg instead of read as a statistic. It surfaces what the aggregates hide: on a bad day several legs are not continuations at all — the aircraft was booked out before its inbound was due in, a tail-chain break from an aircraft swap or a maintenance leg missing from the feed.",
+    ],
+    stack: [
+      "SQL",
+      "DuckDB",
+      "Python",
+      "Star Schema Modeling",
+      "pandas",
+      "Streamlit",
+      "Plotly",
+      "pytest",
+      "Streamlit",
+      "Power BI / Tableau extracts",
+    ],
+    results: [
+      { value: "0.784", label: "correlation vs. independent source", note: "5.4M turns, validated not asserted" },
+      { value: "13x", label: "more damage from an 08:00 delay", note: "0.75 flights delayed vs 0.06 at 21:00" },
+      { value: "28", label: "data quality tests", note: "every figure regenerated from the warehouse" },
+    ],
+    businessImpact:
+      "The recommendation runs against intuition, which is what makes it worth having. Protecting the morning bank with schedule buffer looks obviously right and simulates as close to worthless, because aircraft turning at 06:00 slept at the station and aren't late yet — slack has nothing to absorb. What does pay is preventing carrier-controllable delay in that morning bank, worth roughly $459M a year in direct operating cost at a 20% reduction — costed at the Airlines for America 2025 rate of $98.41 per block minute, and scoped with a pilot design rather than proposed as a blanket change. The December 2022 Southwest collapse is the same thesis at full scale: every carrier flew into the same storm, the control group had recovered by the 26th, and Southwest peaked at 77.5% cancellations. The weather stopped; the cascade did not.",
+    diagram: "propagation",
+    links: {
+      github: "https://github.com/VikhyatKoppalgithub/Flight-Delay-Analytics",
     },
   },
 
@@ -227,7 +229,7 @@ export const projects: Project[] = [
       "An agent that decides where the weekly ad budget goes — and can prove the split is optimal, not just plausible.",
     context: "Purdue University · Daniels School of Business",
     period: "2025 – 2026",
-    featured: true,
+    featured: false,
     category: "Marketing Analytics · Optimization",
     kind: "Academic",
     headlineMetrics: [
