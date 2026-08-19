@@ -266,6 +266,7 @@ export const projects: Project[] = [
     links: {
       github:
         "https://github.com/VikhyatKoppalgithub/AI-Powered-Marketing-Budget-Allocation-Agent",
+      demo: "https://mmm-agent-vikhyat.streamlit.app",
     },
   },
 
