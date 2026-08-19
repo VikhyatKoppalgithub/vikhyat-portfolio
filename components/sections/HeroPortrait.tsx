@@ -1,0 +1,68 @@
+import { site } from "@/content/site";
+
+/**
+ * Hero portrait card.
+ *
+ * The credential chips live here rather than under the headline: the card
+ * needs a reason to exist beyond decoration, and the left column reads
+ * cleaner without them. Renders nothing if `site.portrait` is empty, so the
+ * hero falls back to its single-column layout rather than breaking.
+ */
+export function HeroPortrait({ className = "" }: { className?: string }) {
+  if (!site.portrait) return null;
+
+  return (
+    <div className={`relative ${className}`}>
+      {/* Accent bloom behind the card, same language as the hero glow. */}
+      <div
+        className="pointer-events-none absolute -inset-6 rounded-[2rem] opacity-70 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(60% 60% at 70% 25%, var(--accent-soft), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <figure className="relative overflow-hidden rounded-2xl border border-line bg-surface shadow-card">
+        <div className="relative aspect-4/5 w-full overflow-hidden">
+          {/* Plain <img>: the site is a static export with image optimization
+              off, and this is the LCP element, so it must not lazy-load. */}
+          <img
+            src={site.portrait}
+            alt={site.name}
+            width={880}
+            height={1100}
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-top"
+          />
+
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full border border-accent-line bg-bg/75 px-3 py-1.5 text-[11px] font-medium text-accent backdrop-blur-sm">
+            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            Open to roles
+          </span>
+        </div>
+
+        {/* Desktop only — on mobile these render as chips in the text
+            column instead, so the headline is not pushed below the fold. */}
+        <ul className="hidden divide-y divide-line border-t border-line lg:block">
+          {site.hero.chips.map((chip) => (
+            <li
+              key={chip}
+              className="flex items-center gap-2.5 px-4 py-3 text-xs text-fg-muted"
+            >
+              <span
+                className="h-1 w-1 shrink-0 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              {chip}
+            </li>
+          ))}
+        </ul>
+      </figure>
+    </div>
+  );
+}

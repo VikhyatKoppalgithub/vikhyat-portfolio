@@ -48,6 +48,12 @@ export const site = {
     ],
   },
 
+  /**
+   * Headshot shown in the hero. Drop the file in /public and point here.
+   * Set to "" to hide the portrait card and return to a single-column hero.
+   */
+  portrait: "/vikhyat-koppal.jpeg",
+
   location: "West Lafayette, IN, USA",
   email: "vykoppal@gmail.com",
   phone: "+1 (765) 479-9966",
