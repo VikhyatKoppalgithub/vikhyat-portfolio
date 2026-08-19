@@ -51,17 +51,18 @@ export function Projects() {
         description="Each card opens into the full case study: what the problem actually was, how I approached it, what came out, and why it mattered to the business."
       />
 
-      {/* Paid client and industry work leads; self-directed work follows. */}
-      <ProjectGroup
-        label="Professional"
-        note="Client and industry engagements"
-        items={professionalProjects}
-      />
-
+      {/* Self-directed work leads — it carries the deepest analysis — with
+          client and industry engagements following. */}
       <ProjectGroup
         label="Personal"
         note="Self-directed and academic projects"
         items={personalProjects}
+      />
+
+      <ProjectGroup
+        label="Professional"
+        note="Client and industry engagements"
+        items={professionalProjects}
         className="mt-16"
       />
     </Section>
