@@ -1,5 +1,15 @@
 import { site } from "@/content/site";
 
+/** Pulsing availability dot, reused by both badge placements. */
+function LiveDot() {
+  return (
+    <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+    </span>
+  );
+}
+
 /**
  * Hero portrait card.
  *
@@ -37,19 +47,25 @@ export function HeroPortrait({ className = "" }: { className?: string }) {
             className="h-full w-full object-cover object-top"
           />
 
-          <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full border border-accent-line bg-bg/75 px-3 py-1.5 text-[11px] font-medium text-accent backdrop-blur-sm">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-            </span>
-            Open to roles
+          {/* Overlaid only where the photo is wide enough to carry the full
+              sentence without covering the face — below lg it moves to its own
+              row underneath. */}
+          <span className="absolute bottom-3 left-3 right-3 hidden items-center gap-2 rounded-full border border-accent-line bg-bg/75 px-3 py-1.5 text-[11px] font-medium leading-snug text-accent backdrop-blur-sm lg:inline-flex">
+            <LiveDot />
+            {site.hero.availabilityBadge}
           </span>
+        </div>
+
+        {/* Same badge, stacked placement for small screens. */}
+        <div className="flex items-center gap-2 border-t border-line px-4 py-2.5 text-[11px] font-medium leading-snug text-accent lg:hidden">
+          <LiveDot />
+          {site.hero.availabilityBadgeShort}
         </div>
 
         {/* Always visible, including mobile where the credential rows below
             are hidden — years of experience is the one stat worth the space. */}
         <div className="flex items-baseline gap-2.5 border-t border-line px-4 py-3">
-          <span className="metric text-xl font-semibold text-gradient">
+          <span className="metric text-gradient text-xl font-semibold">
             {site.hero.experience.value}
           </span>
           <span className="text-[11px] leading-tight text-fg-subtle">
@@ -63,10 +79,10 @@ export function HeroPortrait({ className = "" }: { className?: string }) {
           {site.hero.chips.map((chip) => (
             <li
               key={chip}
-              className="flex items-center gap-2.5 px-4 py-3 text-xs text-fg-muted"
+              className="flex items-start gap-2.5 px-4 py-3 text-xs leading-snug text-fg-muted"
             >
               <span
-                className="h-1 w-1 shrink-0 rounded-full bg-accent"
+                className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
                 aria-hidden="true"
               />
               {chip}

@@ -40,24 +40,25 @@ export const site = {
       "AI",
     ],
 
-    /**
-     * Years of experience, shown under the hero portrait.
-     * The maths: Tequed Labs 4 months + Versa Networks 25 + PartnerLinQ 5
-     * = 34 months = 2.83 years, which rounds to 3. The label says "across
-     * analytics & engineering" because only the Versa stretch (25 months) was
-     * a single full-time seat — change `value` to "2+ yrs" if you would rather
-     * state the conservative figure.
-     */
+    /** Shown under the hero portrait. Kept conservative and unambiguous. */
     experience: {
-      value: "3 yrs",
-      label: "across analytics & engineering",
+      value: "2+ Years",
+      label: "Professional Experience",
     },
+
+    /**
+     * Availability badge on the portrait. The full sentence is used from lg up,
+     * where the photo is 378px+ wide; below that the card is too narrow for it
+     * to wrap without eating the fold, so the short form is shown instead.
+     */
+    availabilityBadge: "Open to Data Analyst & Business Analyst Roles",
+    availabilityBadgeShort: "Open to roles",
 
     /** Credibility chips. Facts only. */
     chips: [
-      "U.S. Citizen",
-      "MS-BAIM, Purdue — 2026 graduate",
-      "CAPM® Certified",
+      "U.S. Citizen · No Sponsorship Required",
+      "M.S. Business Analytics and Information Management — Purdue",
+      "CAPM® · Azure AI-900 Certified",
     ],
   },
 

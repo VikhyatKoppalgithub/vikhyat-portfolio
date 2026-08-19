@@ -44,13 +44,13 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           {/* Portrait sits above the copy on mobile — a compact profile
               header — and beside it from lg up. */}
-          <Reveal className="order-first mx-auto w-full max-w-[142px] sm:max-w-[178px] lg:order-last lg:mx-0 lg:max-w-none">
+          <Reveal className="order-first mx-auto w-full max-w-[128px] sm:max-w-[168px] lg:order-last lg:mx-0 lg:max-w-none">
             <HeroPortrait />
           </Reveal>
 
           <div className="max-w-3xl">
           <Reveal>
-            <p className="mb-3 text-lg font-semibold tracking-tight text-fg sm:mb-4 sm:text-xl">
+            <p className="text-name mb-4 font-semibold tracking-tight text-fg sm:mb-5">
               {site.name}
             </p>
           </Reveal>

@@ -194,6 +194,13 @@
     line-height: 1.15;
   }
 
+  .text-name {
+    /* Hero name. Tops out at 34px against the h1's 62px, so it reads as a
+       signature rather than a second headline. Was a flat 18/20px. */
+    font-size: clamp(1.375rem, 1.6vw + 0.95rem, 2.125rem);
+    line-height: 1.15;
+  }
+
   .text-card-title {
     /* was: text-xl / md:text-2xl */
     font-size: clamp(1.125rem, 1.1vw + 0.85rem, 1.5rem);
