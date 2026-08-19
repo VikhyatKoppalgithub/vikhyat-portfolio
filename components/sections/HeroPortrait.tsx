@@ -46,6 +46,17 @@ export function HeroPortrait({ className = "" }: { className?: string }) {
           </span>
         </div>
 
+        {/* Always visible, including mobile where the credential rows below
+            are hidden — years of experience is the one stat worth the space. */}
+        <div className="flex items-baseline gap-2.5 border-t border-line px-4 py-3">
+          <span className="metric text-xl font-semibold text-gradient">
+            {site.hero.experience.value}
+          </span>
+          <span className="text-[11px] leading-tight text-fg-subtle">
+            {site.hero.experience.label}
+          </span>
+        </div>
+
         {/* Desktop only — on mobile these render as chips in the text
             column instead, so the headline is not pushed below the fold. */}
         <ul className="hidden divide-y divide-line border-t border-line lg:block">

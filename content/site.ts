@@ -40,6 +40,19 @@ export const site = {
       "AI",
     ],
 
+    /**
+     * Years of experience, shown under the hero portrait.
+     * The maths: Tequed Labs 4 months + Versa Networks 25 + PartnerLinQ 5
+     * = 34 months = 2.83 years, which rounds to 3. The label says "across
+     * analytics & engineering" because only the Versa stretch (25 months) was
+     * a single full-time seat — change `value` to "2+ yrs" if you would rather
+     * state the conservative figure.
+     */
+    experience: {
+      value: "3 yrs",
+      label: "across analytics & engineering",
+    },
+
     /** Credibility chips. Facts only. */
     chips: [
       "U.S. Citizen",
