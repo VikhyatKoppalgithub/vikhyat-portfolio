@@ -223,9 +223,8 @@ Open `content/projects.ts` and append an object to the array:
   tagline: "One sentence that makes someone want to click.",
   context: "Where it happened",
   period: "2026",
-  featured: true,                      // true = renders in the main group, first
   category: "Analytics",               // the accent badge
-  kind: "Academic",                    // "Academic" | "Professional"
+  kind: "Academic",                    // decides the group — see below
 
   headlineMetrics: [                   // 2–3, shown on the collapsed card
     { value: "0.95", label: "some metric" },
@@ -252,6 +251,11 @@ Open `content/projects.ts` and append an object to the array:
 
 That's it — the grid, the expand behaviour, the metric tiles, and the anchor link
 are all generated from this data.
+
+**Which group it lands in** is decided by `kind`: `"Professional"` renders in the
+first block (client and industry engagements), while `"Personal"` and
+`"Academic"` render in the second. Order inside each group is just the order of
+the array, so move an object up to promote it.
 
 ### Adding a diagram to a project
 

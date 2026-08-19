@@ -8,9 +8,9 @@ import type { Project } from "./types";
  * grid, the expansion behaviour, the metric tiles and the anchor links are
  * all generated from this data.
  *
- * Set `featured: true` for the ones that should render first, above the
- * "More work" divider. Set `diagram` only if you also add a matching
- * component in components/projects/diagrams/ and register it in
+ * `kind` decides the group: "Professional" cards render in the first block,
+ * "Personal" and "Academic" in the second. Set `diagram` only if you also add
+ * a matching component in components/projects/diagrams/ and register it in
  * DiagramSwitch.tsx.
  * ─────────────────────────────────────────────────────────────────────────
  *
@@ -28,7 +28,6 @@ export const projects: Project[] = [
       "225M+ log entries a day, and the ops team only learned about failures after they had cascaded. I found where the money and the failures actually were.",
     context: "PartnerLinQ · Graduate Industry Practicum",
     period: "Jan 2026 – May 2026",
-    featured: true,
     category: "Data Analysis · Root Cause Analysis",
     kind: "Professional",
     headlineMetrics: [
@@ -77,7 +76,6 @@ export const projects: Project[] = [
       "A grocery chain's coupon programme reported a $37.91 weekly lift. Measured properly the effect was zero \u2014 and the one campaign that still looked like a winner was the one whose effect couldn't be established.",
     context: "Personal project \u00b7 22.8M rows, dunnhumby Complete Journey",
     period: "2026",
-    featured: true,
     category: "Causal Analysis \u00b7 Marketing Analytics",
     kind: "Personal",
     headlineMetrics: [
@@ -140,7 +138,6 @@ export const projects: Project[] = [
       "38.8% of delay in US aviation isn't caused by the flight reporting it — it arrived on the aircraft. Finding that changes where you'd intervene.",
     context: "Personal project · 33.7M flights, BTS open data",
     period: "2026",
-    featured: true,
     category: "Data Analysis · SQL & Warehousing",
     kind: "Personal",
     headlineMetrics: [
@@ -194,7 +191,6 @@ export const projects: Project[] = [
       "Broke a single undifferentiated customer base into 4+ behavioral segments, then made the findings self-serve.",
     context: "Tequed Labs · Data Analyst Intern",
     period: "Sept 2022 – Dec 2022",
-    featured: true,
     category: "Customer Analytics · BI Reporting",
     kind: "Professional",
     headlineMetrics: [
@@ -230,7 +226,6 @@ export const projects: Project[] = [
       "An agent that decides where the weekly ad budget goes — and can prove the split is optimal, not just plausible.",
     context: "Purdue University · Daniels School of Business",
     period: "2025 – 2026",
-    featured: false,
     category: "Marketing Analytics · Optimization",
     kind: "Academic",
     headlineMetrics: [
@@ -279,7 +274,6 @@ export const projects: Project[] = [
       "Upload a messy spreadsheet, ask a business question, and get an answer whose every number was computed and checked — not generated.",
     context: "Personal project · runs fully local",
     period: "2026",
-    featured: false,
     category: "Analytics Automation · AI",
     kind: "Personal",
     headlineMetrics: [
@@ -327,7 +321,6 @@ export const projects: Project[] = [
       "Five retrieval strategies, scored on 31 questions — and a result that overturned the choice I would otherwise have shipped.",
     context: "Personal project · no framework dependencies",
     period: "2026",
-    featured: false,
     category: "Knowledge Retrieval · AI",
     kind: "Personal",
     headlineMetrics: [
@@ -367,6 +360,10 @@ export const projects: Project[] = [
   },
 ];
 
-/** Convenience selectors used by the Projects section. */
-export const featuredProjects = projects.filter((p) => p.featured);
-export const additionalProjects = projects.filter((p) => !p.featured);
+/**
+ * The section renders two groups. Paid client and industry work leads;
+ * self-directed and coursework projects follow. Order inside each group is
+ * simply the order of this array.
+ */
+export const professionalProjects = projects.filter((p) => p.kind === "Professional");
+export const personalProjects = projects.filter((p) => p.kind !== "Professional");

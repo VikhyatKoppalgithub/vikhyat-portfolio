@@ -42,11 +42,13 @@ export type Project = {
   /** Where the work happened — company or academic program. */
   context: string;
   period: string;
-  /** Featured projects render larger, at the top of the grid. */
-  featured: boolean;
   /** Short badge, e.g. "AI / Agentic". Drives the accent treatment. */
   category: string;
-  /** How the work came about — surfaced honestly on the card. */
+  /**
+   * How the work came about. Also decides which group the card lands in:
+   * "Professional" heads the section, everything else follows under
+   * personal projects.
+   */
   kind: "Professional" | "Academic" | "Personal";
   /** 2–3 metrics shown on the collapsed card. Keep the strongest first. */
   headlineMetrics: Metric[];
