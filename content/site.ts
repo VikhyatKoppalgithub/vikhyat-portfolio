@@ -22,7 +22,7 @@ export const site = {
   role: "Data Analyst & Business Analyst",
 
   hero: {
-    eyebrow: "Data Analyst · Business Analyst",
+    eyebrow: "Data Analyst | Business Analyst",
     headline: "Turning data, business requirements, and technology into",
     headlineAccent: "actionable decisions.",
     valueProp:
