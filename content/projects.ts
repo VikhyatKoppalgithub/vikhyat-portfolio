@@ -182,6 +182,7 @@ export const projects: Project[] = [
     diagram: "propagation",
     links: {
       github: "https://github.com/VikhyatKoppalgithub/Flight-Delay-Analytics",
+      demo: "https://vikhyatkoppalgithub.github.io/Flight-Delay-Analytics/dashboards/",
     },
   },
 
