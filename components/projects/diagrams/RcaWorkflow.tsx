@@ -13,8 +13,8 @@ export function RcaWorkflow() {
   return (
     <>
       <DiagramFrame
-        title="Cloud telemetry root cause analysis workflow"
-        desc="Cloud telemetry is analyzed with SQL, splitting into 12.4 million CosmosDB request units per month of projected saving and 65,000-plus system errors. Both feed a mapping of failure patterns and process bottlenecks, which becomes a ranked remediation list, then functional requirements, then an AI-driven predictive maintenance solution."
+        title="Azure telemetry root cause analysis workflow"
+        desc="Azure telemetry is analyzed with SQL, splitting into 12.4 million CosmosDB request units per month of projected saving and 65,000-plus system errors. Both feed a mapping of failure patterns and process bottlenecks, which becomes a ranked remediation list, then functional requirements, then an AI-driven predictive maintenance solution."
         viewBox="0 0 880 440"
         minWidth={760}
       >
@@ -26,7 +26,7 @@ export function RcaWorkflow() {
           y={90}
           w={152}
           h={60}
-          label="Cloud telemetry"
+          label="Azure telemetry"
           sub="225M+ entries / day"
           tone="input"
           dashed

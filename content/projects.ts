@@ -23,7 +23,7 @@ import type { Project } from "./types";
 export const projects: Project[] = [
   {
     slug: "cloud-telemetry-rca",
-    title: "Cloud Telemetry Root Cause Analysis",
+    title: "Azure Telemetry Root Cause Analysis",
     tagline:
       "225M+ log entries a day, and the ops team only learned about failures after they had cascaded. I found where the money and the failures actually were.",
     context: "PartnerLinQ · Graduate Industry Practicum",
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     stack: [
       "SQL",
       "Azure (CosmosDB, Service Bus, Functions)",
-      "Cloud Telemetry Analysis",
+      "Azure Telemetry Analysis",
       "Root Cause Analysis",
       "Requirements Elicitation",
       "Stakeholder Reporting",
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     title: "Promotion Incrementality Analysis",
     tagline:
       "A grocery chain's coupon programme reported a $37.91 weekly lift. Measured properly the effect was zero \u2014 and the one campaign that still looked like a winner was the one whose effect couldn't be established.",
-    context: "Personal project \u00b7 22.6M rows, dunnhumby Complete Journey",
+    context: "Personal project \u00b7 22.8M rows, dunnhumby Complete Journey",
     period: "2026",
     featured: true,
     category: "Causal Analysis \u00b7 Marketing Analytics",
