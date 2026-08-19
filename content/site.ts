@@ -109,8 +109,8 @@ export const site = {
  */
 export const impactStats = [
   {
-    value: "12.4M",
-    label: "units of monthly resource waste surfaced",
+    value: "12.4M RU",
+    label: "projected monthly CosmosDB saving",
     note: "SQL root cause analysis · PartnerLinQ",
   },
   {
@@ -133,7 +133,7 @@ export const impactStats = [
 /** About section. Narrative, not a resume restatement. */
 export const about = {
   paragraphs: [
-    "I analyze operational data to find the expensive problems hiding inside it, then turn what I find into requirements, dashboards, and recommendations that a business can actually act on. Most recently that meant root cause analysis on cloud telemetry at PartnerLinQ, where SQL surfaced 12.4M units of monthly resource waste and 65,000+ errors that had been dismissed as background noise.",
+    "I analyze operational data to find the expensive problems hiding inside it, then turn what I find into requirements, dashboards, and recommendations that a business can actually act on. Most recently that meant root cause analysis on cloud telemetry at PartnerLinQ, where SQL across 225M+ daily log entries mapped 65,000+ errors that had been dismissed as background noise and quantified 12.4M CosmosDB request units a month in projected saving.",
     "I got here from the other side. I spent two years as a software engineer at Versa Networks translating requirements from product managers into shipped features, reviewing pull requests, and mentoring interns. That taught me how systems fail, how developers estimate, and why requirements go wrong. I then went to Purdue's Daniels School of Business for a Master of Science in Business Analytics and Information Management to learn the business half properly.",
     "The combination is the point. I can sit in a stakeholder review and a sprint planning session and be useful in both, because I have done both jobs. And when a problem needs more than a dashboard, I can build the thing myself, whether that is an optimization model, an AI system, or automated analysis, rather than writing a ticket and waiting.",
   ],

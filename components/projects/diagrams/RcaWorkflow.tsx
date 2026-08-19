@@ -14,7 +14,7 @@ export function RcaWorkflow() {
     <>
       <DiagramFrame
         title="Cloud telemetry root cause analysis workflow"
-        desc="Cloud telemetry is analyzed with SQL, splitting into quantified resource waste of 12.4 million units per month and 65,000-plus system errors. Both feed a mapping of failure patterns and process bottlenecks, which becomes a ranked remediation list, then functional requirements, then an AI-driven predictive maintenance solution."
+        desc="Cloud telemetry is analyzed with SQL, splitting into 12.4 million CosmosDB request units per month of projected saving and 65,000-plus system errors. Both feed a mapping of failure patterns and process bottlenecks, which becomes a ranked remediation list, then functional requirements, then an AI-driven predictive maintenance solution."
         viewBox="0 0 880 440"
         minWidth={760}
       >
@@ -27,7 +27,7 @@ export function RcaWorkflow() {
           w={152}
           h={60}
           label="Cloud telemetry"
-          sub="pipelines + logs"
+          sub="225M+ entries / day"
           tone="input"
           dashed
         />
@@ -56,8 +56,8 @@ export function RcaWorkflow() {
           y={35}
           w={182}
           h={56}
-          label="Resource waste"
-          sub="12.4M units / month"
+          label="RU exhaustion"
+          sub="12.4M RU / mo saving"
           tone="accent"
         />
         <Node

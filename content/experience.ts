@@ -19,8 +19,8 @@ export const experience: Experience[] = [
       "Enterprise-scale root cause analysis on cloud telemetry, delivered directly to client decision makers.",
     highlights: [
       {
-        text: "Performed root cause analysis on cloud telemetry data using SQL, surfacing monthly resource waste and system errors at a scale that enabled targeted remediation and measurable cost reduction.",
-        metric: "12.4M units · 65K+ errors",
+        text: "Performed root cause analysis on Azure telemetry using SQL, quantifying CosmosDB request-unit exhaustion and mapping system errors to recurring causes across a 31-step EDI transaction pipeline.",
+        metric: "12.4M RU/mo projected · 65K+ errors",
       },
       {
         text: "Mapped failure patterns and process bottlenecks across cloud data pipelines, delivering recommendations that prioritized process improvements by operational impact.",
