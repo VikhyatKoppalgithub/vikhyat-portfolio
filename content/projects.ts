@@ -119,6 +119,68 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "promo-incrementality",
+    title: "Promotion Incrementality Analysis",
+    tagline:
+      "A grocery chain's coupon programme reported a $37.91 weekly lift. Measured properly the effect was zero \u2014 and the one campaign that still looked like a winner was the one whose effect couldn't be established.",
+    context: "Personal project \u00b7 22.6M rows, dunnhumby Complete Journey",
+    period: "2026",
+    featured: true,
+    category: "Causal Analysis \u00b7 Marketing Analytics",
+    kind: "Personal",
+    headlineMetrics: [
+      { value: "$37.91", label: "reported weekly lift" },
+      { value: "\u2212$1.28", label: "actual incremental lift" },
+      { value: "4 of 5", label: "campaigns with a valid counterfactual" },
+    ],
+    problem:
+      "The retailer measured its coupon campaigns by comparing targeted households against untargeted ones, which showed a 4.39x difference in weekly spend. The same two groups already differed 5.67x before any campaign was mailed \u2014 the retailer targets its best customers, so the measurement was crediting campaigns with a gap that predated them. Every decision about which campaigns to repeat was being made on that number.",
+    dataset:
+      "dunnhumby The Complete Journey: 2,469 households of a US grocery retailer over 2017 \u2014 1.47M transaction lines, 20.9M product-store-week promotion records, 27 campaigns, 6,589 sends and 2,102 redemptions. 22.6M rows modelled into a DuckDB star schema.",
+    approach: [
+      "Recovered the operating timezone from the data before trusting any join: source timestamps are UTC while the retailer's week boundary is local midnight, so a naive date cast misassigns 1.16M of 1.47M transactions across campaign windows. Converting to America/New_York reproduces the source week for all 1,469,307 rows exactly.",
+      "Rejected never-targeted households as a control group \u2014 their median pre-period spend was $5.99 against $154.99 for targeted households, a gap no matching can repair \u2014 and used not-yet-treated households instead, drawn from the same targeted population by the same selection process.",
+      "Stacked the campaigns rather than pooling them, avoiding the known bias in two-way fixed effects under staggered rollout, with household and stack-week fixed effects and standard errors clustered on household.",
+      "Replaced the parallel-trends check after finding the first one was a multiple-comparisons trap: screening on whether any single pre-period coefficient is significant rejects a valid design roughly 30% of the time at seven pre-periods. A joint Wald test on the full covariance matrix reversed three campaigns \u2014 admitting two that had been wrongly excluded and rejecting the programme's apparent best performer.",
+      "Falsified every estimate on fake launch dates inside the pre-period, where the true effect is zero by construction. The main design passed; the baseline-quintile heterogeneity analysis failed and was withdrawn from the findings rather than published with a caveat.",
+      "Packaged it as a BA deliverable set \u2014 business case, BRD with user stories and acceptance criteria, KPI dictionary separating descriptive from causal metrics, methodology, findings, recommendations, data dictionary and an assumptions register \u2014 plus a live Excel scenario model, documented Power BI extracts, and an interactive explorer that lets a reader switch the measurement and validation rules and watch the verdict move.",
+    ],
+    stack: [
+      "SQL",
+      "DuckDB",
+      "Python",
+      "Difference-in-Differences",
+      "statsmodels",
+      "Power BI",
+      "Excel",
+      "pytest",
+    ],
+    results: [
+      {
+        value: "$39.20",
+        label: "overstatement per household-week",
+        note: "in the metric the business was acting on",
+      },
+      {
+        value: "\u2212$10,129",
+        label: "margin destroyed",
+        note: "across campaigns that could be measured",
+      },
+      {
+        value: "26",
+        label: "tests",
+        note: "including estimator verification against the dummy-variable model",
+      },
+    ],
+    businessImpact:
+      "The finding that makes this worth discussing is the one that cost me the good headline. Campaign 13 was the programme's only positive, significant result \u2014 +$8.04 per household-week, p=0.003, worth $14,539 in modelled margin. It has zero individually significant pre-treatment coefficients, so every week-by-week check passes and the standard eyeball of an event-study plot would have cleared it. Only the joint test, using the covariance between those coefficients rather than reading them one at a time, catches the drift. Reporting it would have handed the retailer a campaign to scale on evidence that doesn't hold. The recommendation is therefore not \u201cstop couponing\u201d \u2014 it is that a programme spending on 6,589 sends with a 12% redemption rate should reserve a randomised holdout, which turns a contested statistical reconstruction into a subtraction, and re-run campaign 13 properly rather than discard it. Failing a parallel-trends test is evidence that the data cannot tell, not evidence of no effect.",
+    links: {
+      github:
+        "https://github.com/VikhyatKoppalgithub/Trade-promotion-incrementality",
+    },
+  },
+
+  {
     slug: "customer-segmentation",
     title: "Customer Segmentation & Targeted Marketing",
     tagline:
