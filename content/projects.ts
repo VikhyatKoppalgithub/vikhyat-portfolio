@@ -128,6 +128,7 @@ export const projects: Project[] = [
     links: {
       github:
         "https://github.com/VikhyatKoppalgithub/Trade-promotion-incrementality",
+      demo: "https://vikhyatkoppalgithub.github.io/Trade-promotion-incrementality/",
     },
   },
 
