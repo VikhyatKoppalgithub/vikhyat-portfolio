@@ -314,6 +314,7 @@ export const projects: Project[] = [
     diagram: "hybrid",
     links: {
       github: "https://github.com/VikhyatKoppalgithub/AI_DATA_ANALYST_HYBRID_AGENT",
+      demo: "https://aidataanalysthybridagent.streamlit.app",
     },
   },
 
