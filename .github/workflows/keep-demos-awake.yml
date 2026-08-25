@@ -1,0 +1,123 @@
+name: Keep Streamlit demos awake
+
+# Streamlit Community Cloud hibernates an app after 12 hours with no traffic,
+# and there is no setting or paid tier that turns this off. A sleeping app shows
+# a "This app has gone to sleep due to inactivity" interstitial and then takes
+# ~60-90s to boot — not something a recruiter opening the portfolio should hit.
+#
+# Runs every 6 hours, leaving 6 hours of slack against the 12-hour timer even
+# when GitHub delays a scheduled run under load.
+#
+# Why a browser instead of curl: a plain HTTP GET cannot dismiss the
+# interstitial, so curl would keep a live app alive but could never recover one
+# that had already slept. This drives Chromium and clicks the wake button, so it
+# is self-healing.
+#
+# DOM shape (verified 2026-08-25 against both apps):
+#   asleep -> top document holds <button>Yes, get this app back up!</button>
+#             and there is no app iframe at all
+#   awake  -> app renders inside iframe[title="streamlitApp"], and the
+#             [data-testid="stApp"] root lives INSIDE that iframe, not the top
+#             document — so every lookup below scans all frames.
+#
+# NOTE: GitHub disables scheduled workflows in a public repo after 60 days with
+# no repository activity. Any push to this repo resets that clock.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # 00:00, 06:00, 12:00, 18:00 UTC
+  workflow_dispatch:         # run by hand from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false       # one sleeping app must not mask the other's result
+      matrix:
+        app:
+          - name: AI Data Analyst
+            url: https://aidataanalysthybridagent.streamlit.app
+          - name: AI Marketing Budget Agent
+            url: https://mmm-agent-vikhyat.streamlit.app
+
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Chromium
+        run: |
+          npm install --no-save playwright@1.49.0
+          npx playwright install --with-deps chromium
+
+      - name: Visit ${{ matrix.app.name }}
+        env:
+          APP_URL: ${{ matrix.app.url }}
+          APP_NAME: ${{ matrix.app.name }}
+        run: |
+          cat > ping.mjs <<'JS'
+          import { chromium } from "playwright";
+
+          const url = process.env.APP_URL;
+          const name = process.env.APP_NAME;
+
+          const browser = await chromium.launch();
+          const page = await browser.newPage();
+          let woke = false;
+          let ready = false;
+
+          // The app root and the wake button live in different frames depending
+          // on whether the app is asleep, so both lookups scan every frame.
+          const wakeButton = async () => {
+            for (const f of page.frames()) {
+              try {
+                const b = f.getByRole("button", { name: /back up/i });
+                if (await b.count()) return b.first();
+              } catch { /* frame detached mid-scan */ }
+            }
+            return null;
+          };
+
+          const appRoot = async () => {
+            for (const f of page.frames()) {
+              try {
+                if (await f.locator('[data-testid="stApp"]').count()) return true;
+              } catch { /* frame detached mid-scan */ }
+            }
+            return false;
+          };
+
+          try {
+            await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90_000 });
+
+            // Boot from cold can take ~90s, so poll rather than one long wait.
+            const deadline = Date.now() + 240_000;
+            while (Date.now() < deadline) {
+              const btn = await wakeButton();
+              if (btn) {
+                if (!woke) console.log(`${name}: asleep — clicking wake button`);
+                woke = true;
+                // The first click sometimes lands before the handler is bound.
+                await btn.click({ timeout: 10_000 }).catch(() => {});
+                await page.waitForTimeout(5_000);
+                continue;
+              }
+              if (await appRoot()) { ready = true; break; }
+              await page.waitForTimeout(3_000);
+            }
+
+            if (ready) {
+              await page.waitForTimeout(5_000);   // let the first render settle
+              console.log(`${name}: OK — ${woke ? "woken from sleep" : "already awake"}`);
+            } else {
+              console.log(`::warning::${name}: did not reach a rendered app within 4 minutes`);
+            }
+          } catch (err) {
+            // Never fail the job: a transient Streamlit outage would otherwise
+            // email a failure every 6 hours until it cleared.
+            console.log(`::warning::${name}: ${err.message}`);
+          } finally {
+            await browser.close();
+          }
+          JS
+          node ping.mjs
