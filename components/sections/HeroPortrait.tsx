@@ -1,14 +1,5 @@
 import { site } from "@/content/site";
-
-/** Pulsing availability dot, reused by both badge placements. */
-function LiveDot() {
-  return (
-    <span className="relative mt-1 flex h-1.5 w-1.5 shrink-0 lg:mt-0" aria-hidden="true">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-    </span>
-  );
-}
+import { AvailabilityPill } from "@/components/ui/AvailabilityPill";
 
 function CredentialList({ items, className }: { items: readonly string[]; className: string }) {
   return (
@@ -71,22 +62,15 @@ export function HeroPortrait({ className = "" }: { className?: string }) {
             className="h-full w-full object-cover object-top"
           />
 
-          {/* Overlaid on the photo only on desktop, where it has room. */}
-          <span className="absolute bottom-3 left-3 right-3 hidden items-center gap-2 rounded-full border border-accent-line bg-bg/75 px-3 py-1.5 text-[11px] font-medium leading-snug text-accent backdrop-blur-sm lg:inline-flex">
-            <LiveDot />
-            {site.hero.availabilityBadge}
-          </span>
+          {/* Desktop only — sized to its content and anchored to the
+              bottom-left corner, never stretched across the photo. */}
+          <AvailabilityPill className="absolute bottom-3 left-3 hidden bg-bg/80 backdrop-blur-sm lg:inline-flex" />
         </div>
 
         {/* Information column — beside the photo on mobile, stacked beneath it
             on desktop. min-w-0 lets long strings wrap instead of overflowing. */}
         <div className="flex min-w-0 flex-1 flex-col lg:flex-none">
-          <div className="flex items-start gap-2 px-3 py-2.5 text-[11px] font-medium leading-snug text-accent lg:hidden">
-            <LiveDot />
-            <span className="min-w-0">{site.hero.availabilityBadge}</span>
-          </div>
-
-          <div className="border-t border-line px-3 py-2.5 lg:flex lg:items-baseline lg:gap-2.5 lg:px-4 lg:py-3">
+          <div className="px-3 py-2.5 lg:flex lg:items-baseline lg:gap-2.5 lg:border-t lg:border-line lg:px-4 lg:py-3">
             <span className="metric text-gradient block text-lg font-semibold leading-tight lg:text-xl">
               {site.hero.experience.value}
             </span>

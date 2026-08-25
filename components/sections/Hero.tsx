@@ -5,6 +5,7 @@ import { ResumeDownload } from "@/components/ui/ResumeDownload";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import { Reveal } from "@/components/ui/Reveal";
 import { HeroPortrait } from "./HeroPortrait";
+import { AvailabilityPill } from "@/components/ui/AvailabilityPill";
 
 /**
  * The 20-second section.
@@ -49,6 +50,12 @@ export function Hero() {
           </Reveal>
 
           <div className="max-w-3xl">
+            {/* Below lg the portrait card has no room for this, so it sits
+                here — aligned with the hero copy, still a compact pill. */}
+            <Reveal className="lg:hidden">
+              <AvailabilityPill className="mb-6 inline-flex bg-accent-soft lg:hidden" />
+            </Reveal>
+
           <Reveal>
             <p className="text-name mb-4 font-semibold tracking-tight text-fg sm:mb-5">
               {site.name}
