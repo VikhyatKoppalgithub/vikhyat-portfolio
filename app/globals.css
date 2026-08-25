@@ -24,7 +24,7 @@
   /* type */
   --fg: #e8edf4;
   --fg-muted: #97a4b5;
-  --fg-subtle: #6b7887;
+  --fg-subtle: #788594; /* AA: 4.51-5.30:1 on the four dark surfaces */
 
   /* accent — electric cyan, with indigo as the gradient partner */
   --accent: #22d3ee;
@@ -52,7 +52,7 @@
 
   --fg: #0b1220;
   --fg-muted: #52627a;
-  --fg-subtle: #7c8ba1;
+  --fg-subtle: #627187; /* AA: 4.54-4.96:1 on the three light surfaces */
 
   /* darkened so contrast passes on a light ground */
   --accent: #0e7490;
@@ -125,7 +125,8 @@
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 4px;
+    /* No border-radius here — it would override the element's own corners and
+       square off pills and cards for as long as they hold focus. */
   }
 
   ::selection {

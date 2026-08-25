@@ -18,8 +18,8 @@ export function AvailabilityPill({ className = "" }: { className?: string }) {
         // NOTE: no display utility here — the caller supplies it, otherwise
         // it would conflict with `hidden` and both variants would show.
         "group w-fit max-w-full items-center gap-2 rounded-full border " +
-        "border-accent-line py-1 pl-1 pr-3 text-[10.5px] font-medium leading-tight " +
-        "text-accent transition-colors hover:border-accent sm:text-[11px] " +
+        "border-accent-line py-1.5 pl-1 pr-3 text-[11px] font-medium leading-tight " +
+        "text-accent transition-colors hover:border-accent lg:py-1 " +
         className
       }
     >
