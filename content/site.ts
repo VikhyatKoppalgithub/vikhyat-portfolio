@@ -87,15 +87,14 @@ export const site = {
     github: "https://github.com/VikhyatKoppalgithub",
   },
 
-  /** Files live in /public/resume/. Add or rename freely. */
+  /**
+   * Files live in /public/resume/. One entry renders a plain download button;
+   * add a second and the hero automatically becomes a dropdown again.
+   */
   resumes: [
     {
-      label: "Data Analyst Resume",
-      file: "/resume/Vikhyat_Koppal_Data_Analyst.pdf",
-    },
-    {
-      label: "Business Analyst Resume",
-      file: "/resume/Vikhyat_Koppal_Business_Analyst.pdf",
+      label: "Resume",
+      file: "/resume/Vikhyat_Koppal_Resume.pdf",
     },
   ],
 

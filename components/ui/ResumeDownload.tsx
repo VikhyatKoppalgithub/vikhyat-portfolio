@@ -4,19 +4,28 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, Download } from "lucide-react";
 import { site } from "@/content/site";
 
+/** Shared trigger styling so the single-file button and the dropdown match. */
+const TRIGGER =
+  "inline-flex w-full min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg " +
+  "border border-line-strong bg-surface px-4 py-2.5 text-sm font-medium text-fg " +
+  "transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-line " +
+  "hover:bg-surface-2 sm:min-h-0 sm:w-auto";
+
 /**
- * "Download Resume" dropdown.
+ * "Download Resume".
  *
- * This was a native <details>/<summary>, which only closes by clicking the
- * summary again. Standard dropdown UX needs outside-click and Escape to close
- * it too, so it's a controlled disclosure instead. The markup and classes are
- * otherwise unchanged from the original, so it renders identically.
+ * With a single resume this is a plain download link — a disclosure holding one
+ * item is a control that does nothing. With two or more it becomes a dropdown
+ * that closes on outside press and Escape, since a native <details> only closes
+ * by clicking its own summary again.
  */
 export function ResumeDownload({ className = "" }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuId = useId();
+
+  const single = site.resumes.length === 1 ? site.resumes[0] : null;
 
   useEffect(() => {
     if (!open) return;
@@ -46,6 +55,15 @@ export function ResumeDownload({ className = "" }: { className?: string }) {
     };
   }, [open]);
 
+  if (single) {
+    return (
+      <a href={single.file} download="" className={`${TRIGGER} ${className}`}>
+        <Download size={16} aria-hidden="true" />
+        Download Resume
+      </a>
+    );
+  }
+
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <button
@@ -54,7 +72,7 @@ export function ResumeDownload({ className = "" }: { className?: string }) {
         onClick={() => setOpen((isOpen) => !isOpen)}
         aria-expanded={open}
         aria-controls={menuId}
-        className="inline-flex w-full min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-4 py-2.5 text-sm font-medium text-fg transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-line hover:bg-surface-2 sm:min-h-0 sm:w-auto"
+        className={TRIGGER}
       >
         <Download size={16} aria-hidden="true" />
         Download Resume

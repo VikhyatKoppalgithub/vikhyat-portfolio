@@ -104,9 +104,8 @@ vikhyat-portfolio/
 │       └── BrandIcons.tsx        GitHub + LinkedIn SVG marks
 │
 └── public/
-    └── resume/                   ★ YOUR RESUME PDFs GO HERE ★
-        ├── Vikhyat_Koppal_Data_Analyst.pdf
-        └── Vikhyat_Koppal_Business_Analyst.pdf
+    └── resume/                   ★ YOUR RESUME PDF GOES HERE ★
+        └── Vikhyat_Koppal_Resume.pdf
 ```
 
 ---
@@ -192,8 +191,8 @@ automatically in the navbar, hero, contact section, and footer. Nothing else to
 change.
 
 **Swap in an updated resume** → drop the PDF into `public/resume/` and update the
-`resumes` array in `content/site.ts`. You can list one, two, or more — the hero
-dropdown is generated from that array.
+`resumes` array in `content/site.ts`. With a single entry the hero shows a plain
+"Download Resume" button; add a second and it becomes a dropdown automatically.
 
 **Add a job** → prepend an object to the array in `content/experience.ts`.
 Set `track` to `"analytics"` or `"engineering"` to colour its timeline node.
