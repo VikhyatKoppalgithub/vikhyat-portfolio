@@ -360,6 +360,10 @@ export const projects: Project[] = [
     diagram: "rag",
     links: {
       github: "https://github.com/VikhyatKoppalgithub/HR_Chatbot_Assistant",
+      // Static GitHub Pages build: the retrieval engine was ported to
+      // JavaScript and runs client-side, so there is no server to sleep,
+      // time out, or bill. Never idles like a hosted app demo would.
+      demo: "https://vikhyatkoppalgithub.github.io/HR_Chatbot_Assistant/",
     },
   },
 ];
