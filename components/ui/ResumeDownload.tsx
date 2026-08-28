@@ -18,6 +18,14 @@ const TRIGGER =
  * item is a control that does nothing. With two or more it becomes a dropdown
  * that closes on outside press and Escape, since a native <details> only closes
  * by clicking its own summary again.
+ *
+ * The `download` attribute alone is NOT enough on mobile. Vercel serves PDFs
+ * with `Content-Disposition: inline`; desktop browsers let `download` override
+ * that for same-origin files, but iOS Safari and Chrome on Android hand the
+ * file to their PDF viewer instead, so the tap looks like it did nothing.
+ * `vercel.json` forces `Content-Disposition: attachment` on /resume/ to make
+ * the download deterministic everywhere. Certificates deliberately stay
+ * `inline` — those are meant to be read, not saved.
  */
 export function ResumeDownload({ className = "" }: { className?: string }) {
   const [open, setOpen] = useState(false);
