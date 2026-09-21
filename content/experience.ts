@@ -37,7 +37,7 @@ export const experience: Experience[] = [
 
   {
     company: "Versa Networks",
-    role: "Software Engineer",
+    role: "Analyst (Engineering Team)",
     location: "Bangalore, India",
     period: "Jul 2023 – Jul 2025",
     track: "engineering",
