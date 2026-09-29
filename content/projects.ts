@@ -32,15 +32,15 @@ export const projects: Project[] = [
     kind: "Professional",
     headlineMetrics: [
       { value: "225M+", label: "daily log entries analyzed" },
-      { value: "12.4M RU", label: "projected monthly CosmosDB saving" },
+      { value: "12.4M RU", label: "projected monthly Cosmos DB waste" },
       { value: "65K+", label: "system errors mapped to causes" },
     ],
     problem:
-      "A B2B integration platform ran EDI transaction pipelines for logistics partners on Azure — CosmosDB, Service Bus, and Azure Functions behind a 31-step pipeline. Failures didn't surface immediately, they compounded: a throughput throttle became a timeout, a timeout became a stuck transaction, and a stuck transaction became a 2am support ticket. The tooling was reactive by design, alerting when transactions failed rather than when the conditions for failure were forming. The problem was never a shortage of data — it was that 225M+ daily log entries contained no usable signal ahead of the noise.",
+      "A B2B integration platform ran EDI transaction pipelines for logistics partners on Azure — Cosmos DB, Service Bus, and Azure Functions behind a 31-step pipeline. Failures didn't surface immediately, they compounded: a throughput throttle became a timeout, a timeout became a stuck transaction, and a stuck transaction became a 2am support ticket. The tooling was reactive by design, alerting when transactions failed rather than when the conditions for failure were forming. The problem was never a shortage of data — it was that 225M+ daily log entries contained no usable signal ahead of the noise.",
     dataset:
-      "Production Azure telemetry across the EDI transaction pipeline — 225M+ daily log entries covering transaction volume, step-level latencies, failure records, and CosmosDB request-unit consumption.",
+      "Production Azure telemetry across the EDI transaction pipeline — 225M+ daily log entries covering transaction volume, step-level latencies, failure records, and Cosmos DB request-unit consumption.",
     approach: [
-      "Wrote SQL against raw telemetry to quantify CosmosDB request-unit consumption and isolate where provisioned throughput was being exhausted without corresponding transaction value.",
+      "Wrote SQL against raw telemetry to quantify Cosmos DB request-unit consumption and isolate where provisioned throughput was being exhausted without corresponding transaction value.",
       "Mapped failure patterns and process bottlenecks across the 31-step pipeline, grouping an undifferentiated error count into recurring, nameable causes tied to specific steps and partners.",
       "Ranked findings by remediation impact so engineering effort could go to the largest contributors first rather than to whichever alert fired most recently.",
       "Translated the operational findings into functional requirements for the AI-driven predictive maintenance system the practicum team went on to build — defining what the detection layer needed to watch, which conditions justified escalation, and what a recommendation had to cite to be actionable.",
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     ],
     stack: [
       "SQL",
-      "Azure (CosmosDB, Service Bus, Functions)",
+      "Azure (Cosmos DB, Service Bus, Functions)",
       "Azure Telemetry Analysis",
       "Root Cause Analysis",
       "Requirements Elicitation",
@@ -57,14 +57,14 @@ export const projects: Project[] = [
     results: [
       {
         value: "12.4M RU",
-        label: "projected monthly saving",
-        note: "from preventing CosmosDB RU exhaustion",
+        label: "projected monthly waste identified",
+        note: "Cosmos DB request-unit exhaustion",
       },
       { value: "65K+", label: "system errors mapped", note: "grouped into recurring failure patterns" },
       { value: "On schedule", label: "predictive maintenance solution", note: "requirements delivered to spec" },
     ],
     businessImpact:
-      "Gave the client something they did not have: a defensible number attached to a known problem, broken down by cause and ordered by what to fix first. Quantifying request-unit exhaustion turned \"our cloud costs feel high\" into a specific, addressable figure — 12.4M RU a month in projected saving once the failure conditions were caught before they cascaded. The analysis then became the requirements baseline for the predictive maintenance system, so the findings didn't stop at a slide deck. My contribution was the analysis and the requirements; the detection and agent system itself was built by my practicum partner.",
+      "Gave the client something they did not have: a defensible number attached to a known problem, broken down by cause and ordered by what to fix first. Quantifying request-unit exhaustion turned \"our cloud costs feel high\" into a specific, addressable figure — 12.4M RU a month in projected resource waste, recoverable once the failure conditions were caught before they cascaded. The analysis then became the requirements baseline for the predictive maintenance system, so the findings didn't stop at a slide deck. My contribution was the analysis and the requirements; the detection and agent system itself was built by my practicum partner.",
     diagram: "rca",
     links: {},
   },
@@ -192,7 +192,7 @@ export const projects: Project[] = [
     tagline:
       "Broke a single undifferentiated customer base into 4+ behavioral segments, then made the findings self-serve.",
     context: "Tequed Labs · Data Analyst Intern",
-    period: "Sept 2022 – Dec 2022",
+    period: "Sep 2022 – Dec 2022",
     category: "Customer Analytics · BI Reporting",
     kind: "Professional",
     headlineMetrics: [
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     category: "Marketing Analytics · Optimization",
     kind: "Academic",
     headlineMetrics: [
-      { value: "+162%", label: "predicted conversion lift" },
+      { value: "+162%", label: "projected conversion lift" },
       { value: "132K+", label: "rows of eCommerce data" },
       { value: "KKT", label: "verified optimal solution" },
     ],
@@ -256,7 +256,7 @@ export const projects: Project[] = [
       "Plotly",
     ],
     results: [
-      { value: "+162%", label: "predicted conversion lift", note: "vs. baseline allocation" },
+      { value: "+162%", label: "projected conversion lift", note: "vs. baseline allocation" },
       { value: "132K+", label: "rows processed", note: "5 years of weekly history" },
       { value: "KKT", label: "optimality verified", note: "not just sampled-best" },
     ],

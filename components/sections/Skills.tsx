@@ -2,6 +2,7 @@ import {
   BrainCircuit,
   ChartColumn,
   ClipboardList,
+  Cloud,
   Code2,
   Database,
   KanbanSquare,
@@ -16,6 +17,7 @@ import { Reveal } from "@/components/ui/Reveal";
 /** Maps the `icon` key in content/skills.ts to a component. */
 const ICONS: Record<string, LucideIcon> = {
   analytics: Database,
+  cloud: Cloud,
   code: Code2,
   chart: ChartColumn,
   ai: BrainCircuit,

@@ -10,8 +10,8 @@ import type { SkillCategory } from "./types";
  *
  * NOTE(vikhyat): every entry below appears on your resume, except where
  * entailed by it — "JavaScript" (Backbone.js → React work) and "Pull Request
- * Review Workflow" (50+ PRs reviewed). Consider adding Git/GitHub explicitly
- * to your resume; its absence is conspicuous for someone with your background.
+ * Review Workflow" (90+ PRs reviewed). Git is now on the resume explicitly,
+ * so the earlier gap here is closed.
  */
 
 export const skillCategories: SkillCategory[] = [
@@ -85,11 +85,12 @@ export const skillCategories: SkillCategory[] = [
       "DuckDB",
       "Python",
       "pandas",
+      "NumPy",
       "Streamlit",
       "JavaScript",
       "React",
       "Backbone.js",
-      "Excel (Pivot Tables, XLOOKUP)",
+      "Excel (pivot tables, XLOOKUP)",
     ],
   },
 
@@ -105,7 +106,20 @@ export const skillCategories: SkillCategory[] = [
       "Bayesian Optimization",
       "Constrained Optimization (KKT)",
       "Deterministic Eval Harnesses",
+      "AI-Assisted Development (Claude Code, Codex, Cursor)",
       "Azure AI Fundamentals",
+    ],
+  },
+
+  {
+    title: "Cloud & Data Platforms",
+    icon: "cloud",
+    blurb: "Where the data actually lives.",
+    skills: [
+      "Databricks",
+      "GCP (BigQuery)",
+      "AWS (S3, Athena)",
+      "Azure · Cosmos DB",
     ],
   },
 
@@ -114,11 +128,12 @@ export const skillCategories: SkillCategory[] = [
     icon: "tools",
     blurb: "The day-to-day of shipping on a real team.",
     skills: [
+      "Git (GitHub, GitLab)",
+      "GitLab CI",
       "Pull Request Review Workflow",
       "ESLint / Code Standards",
       "Jira",
       "Confluence",
-      "Mentoring & Code Review",
     ],
   },
 ];
