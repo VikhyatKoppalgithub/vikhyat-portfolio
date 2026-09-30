@@ -26,7 +26,7 @@ export const projects: Project[] = [
     title: "Azure Telemetry Root Cause Analysis",
     tagline:
       "225M+ log entries a day, and the ops team only learned about failures after they had cascaded. I found where the money and the failures actually were.",
-    context: "PartnerLinQ · Graduate Industry Practicum",
+    context: "PartnerLinQ · Industry Practicum",
     period: "Jan 2026 – May 2026",
     category: "Data Analysis · Root Cause Analysis",
     kind: "Professional",

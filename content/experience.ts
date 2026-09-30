@@ -10,12 +10,17 @@ import type { Experience } from "./types";
  * Every line below tracks the resume in /public/resume. When the resume
  * changes, change this file in the same pass — the hero links straight to the
  * PDF, so a recruiter can read both within about ten seconds of each other.
+ *
+ * One deliberate exception: the Versa role reads "Software Engineer (Technical
+ * Analyst)" here and on LinkedIn, while the resume shortens it to "Technical
+ * Analyst" to save a line. That divergence is intentional — do not "correct"
+ * this back to match the PDF.
  */
 
 export const experience: Experience[] = [
   {
     company: "PartnerLinQ",
-    role: "Data Analyst — Graduate Industry Practicum",
+    role: "Data Analyst — Industry Practicum",
     location: "Cranbury, NJ",
     period: "Jan 2026 – May 2026",
     track: "analytics",
@@ -45,7 +50,7 @@ export const experience: Experience[] = [
 
   {
     company: "Versa Networks",
-    role: "Software Engineer",
+    role: "Software Engineer (Technical Analyst)",
     location: "Bangalore, India",
     period: "Jul 2023 – Jul 2025",
     track: "engineering",
